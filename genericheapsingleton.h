@@ -18,6 +18,7 @@ public:
 	
 	static void release()
 	{
+	// Should be locked with a mutex in a multi-threading context
 		if(_instance)
 		{
 			delete _instance;
@@ -26,12 +27,13 @@ public:
 	}
 
 protected:
-	T *_instance;
+	static T *_instance;
 	GenericHeapSingleton() {}
 	~GenericHeapSingleton() {}
 	GenericHeapSingleton(const GenericHeapSingleton<T>& copy) {}
 	GenericStackSingleton& operator = (const GenericStackSingleton<T>& copy) {}
 };
 
+template<typename T> T* GenericHeapSingleton::<T> _instance = 0;
 
 #endif
